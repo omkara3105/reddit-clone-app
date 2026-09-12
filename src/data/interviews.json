@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "personName": "Rahul Patil",
+    "company": "TCS",
+    "question": "Explain OOP concepts with real-life examples.",
+    "date": "2026-09-01"
+  },
+  {
+    "id": 2,
+    "personName": "Sneha Sharma",
+    "company": "Infosys",
+    "question": "What is the difference between TCP and UDP?",
+    "date": "2026-09-02"
+  },
+  {
+    "id": 3,
+    "personName": "Amit Joshi",
+    "company": "Accenture",
+    "question": "Explain AWS EC2 and why we use it.",
+    "date": "2026-09-03"
+  },
+  {
+    "id": 4,
+    "personName": "Priya Deshmukh",
+    "company": "Capgemini",
+    "question": "What is polymorphism in Java?",
+    "date": "2026-09-04"
+  },
+  {
+    "id": 5,
+    "personName": "Vishal More",
+    "company": "Wipro",
+    "question": "Explain the difference between ArrayList and LinkedList.",
+    "date": "2026-09-05"
+  }
+]
