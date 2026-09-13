@@ -1,54 +1,69 @@
+
 import { useEffect, useState } from "react";
 
 import Navbar from "../components/Navbar";
-// import SearchBar from "../components/SearchBar";
 import InterviewCard from "../components/InterviewCard";
 import AddNoteModal from "../components/AddNoteModal";
 
 import companies from "../data/companies";
-import interviewData from "../data/interviews.json";
 
 function Dashboard() {
   const [interviews, setInterviews] = useState([]);
   const [search, setSearch] = useState("");
   const [showModal, setShowModal] = useState(false);
 
+  const API_URL ="https://m8om4lnbfc.execute-api.ap-south-1.amazonaws.com/comments";
+
   useEffect(() => {
-    // Get newly added interviews from localStorage
-    const savedInterviews =
-      JSON.parse(localStorage.getItem("interviews")) || [];
+  fetch(API_URL)
+    .then((res) => {
+      console.log("API status:", res.status);
+      return res.json();
+    })
+    .then((data) => {
+      console.log("API data:", data);
+      setInterviews(data);
+    })
+    .catch((error) => {
+      console.error("API ERROR:", error);
+    });
+    }, []);
 
-    // JSON file + locally added interviews
-    setInterviews([...interviewData, ...savedInterviews]);
-  }, []);
+  // Add new interview to DynamoDB
+  const addInterview = async (newInterview) => {
+    try {
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newInterview),
+      });
 
-  const addInterview = (newInterview) => {
-    // Get existing user-added interviews
-    const savedInterviews =
-      JSON.parse(localStorage.getItem("interviews")) || [];
+      if (!response.ok) {
+        throw new Error("Failed to save interview");
+      }
 
-    const updatedInterviews = [
-      ...savedInterviews,
-      newInterview,
-    ];
+      const savedInterview = await response.json();
 
-    // Save only newly added interviews
-    localStorage.setItem(
-      "interviews",
-      JSON.stringify(updatedInterviews)
-    );
+      // Add newly saved interview to screen
+      setInterviews((prev) => [
+        savedInterview,
+        ...prev,
+      ]);
 
-    // Update screen immediately
-    setInterviews([
-      ...interviewData,
-      ...updatedInterviews,
-    ]);
+      // Close modal
+      setShowModal(false);
+
+    } catch (error) {
+      console.error("Error saving interview:", error);
+    }
   };
 
   // Search by company
   const filteredInterviews = interviews.filter((item) =>
     item.company
-      .toLowerCase()
+      ?.toLowerCase()
       .includes(search.toLowerCase())
   );
 
@@ -86,12 +101,6 @@ function Dashboard() {
 
         </div>
 
-        {/* <SearchBar
-          search={search}
-          setSearch={setSearch}
-          companies={companies}
-        /> */}
-
         <div className="interview-list">
 
           {randomInterviews.length > 0 ? (
@@ -103,11 +112,13 @@ function Dashboard() {
             ))
           ) : (
             <div className="empty-state">
+
               <h2>No interviews found</h2>
 
               <p>
                 No interview experience found for "{search}".
               </p>
+
             </div>
           )}
 
