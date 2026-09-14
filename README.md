@@ -1,3 +1,12 @@
+<img width="1536" height="1024" alt="reddit clone app" src="https://github.com/user-attachments/assets/66d7b7a5-a231-4299-8493-dbdcdaea8081" />
+
+<img width="1537" height="747" alt="Screenshot 2026-09-12 142856" src="https://github.com/user-attachments/assets/8cc8ff5c-a447-4f43-aeaa-2cbb2f40b6b4" />
+
+
+<img width="1920" height="1032" alt="Screenshot 2026-09-12 142856_2" src="https://github.com/user-attachments/assets/9d8c8e37-c650-4940-bc18-4316c7b87e20" />
+
+
+
 # Reddit Clone App
 
 A simple Reddit-style web application where users can add and explore interview experiences and questions shared by other users.
